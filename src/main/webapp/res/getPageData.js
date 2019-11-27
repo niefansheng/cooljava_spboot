@@ -1,0 +1,1 @@
+{"code":1,"fileList":[{"id":14,"name":"test1\n","type":"\/DIR","src":null,"path":null,"pid":0,"time":1571810901},{"id":1,"name":"1.jpg","type":"jpg","src":"\/uploads\/20191023\/2e263d0c562eebc22b28150ef650971e.jpg","path":null,"pid":0,"time":1571800184}],"count":2}

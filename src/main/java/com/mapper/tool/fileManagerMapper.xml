@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.tool.FileManagerMapper">
+
+	<sql id="columns">
+				a.TIME AS "time",
+				a.OS AS "os",
+				a.PID AS "pid",
+				a.PATH AS "path",
+				a.SRC AS "src",
+				a.TYPE AS "type",
+				a.NAME AS "name",
+				a.ID AS "id"
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="selectPageParmas">
+		<where>
+			1=1
+			<if test="id != null and id != '' ">
+				<![CDATA[and a.ID=  #{id}]]>
+			</if>
+		</where>
+	</sql>
+
+	<sql id="nextLevFilesParmas">
+		<where>
+			1=1
+			<if test="pid != null and pid != '' ">
+				<![CDATA[and a.PID=  #{pid}]]>
+			</if>
+		</where>
+	</sql>
+
+	<select id="get" parameterType="com.model.tool.FileManager" resultType="com.model.tool.FileManager">
+		select
+		<include refid="columns"/>
+		from FILE_MANAGER a
+		<include refid="selectPageParmas" />
+	</select>
+
+	<select id="getCount" parameterType="com.model.tool.FileManager" resultType="Long">
+		select count(id)
+		from FILE_MANAGER a
+		<include refid="selectPageParmas" />
+	</select>
+
+	<select id="getAllList" resultType="com.model.tool.FileManager" parameterType="com.model.tool.FileManager" >
+		<!-- 同时生成了两个数据库的代码，可以根据自己需要删除 -->
+		<if test="dbName == 'mysql'">
+			select
+			<include refid="columns"/>
+			from FILE_MANAGER a
+			<include refid="nextLevFilesParmas" />
+		</if>
+		<if test="dbName == 'mssql'">
+			SELECT
+			<include refid="columns"/>
+			FROM FILE_MANAGER a
+			<include refid="selectPageParmas" />
+		</if>
+		<if test="dbName == 'oracle'">
+			SELECT
+			<include refid="columns"/>
+			FROM FILE_MANAGER a
+			<include refid="nextLevFilesParmas" />
+		</if>
+	</select>
+
+	<select id="getListByPage" resultType="com.model.tool.FileManager" parameterType="com.model.tool.FileManager" >
+		<!-- 同时生成了两个数据库的代码，可以根据自己需要删除 -->
+		<if test="dbName == 'mysql'">
+			select
+			<include refid="columns"/>
+			from FILE_MANAGER a
+			<where>
+				<if test="pid != null and pid != '' or pid == 0 ">
+					<![CDATA[and a.PID =  #{pid}]]>
+				</if>
+			</where>
+			ORDER BY ID
+			LIMIT #{start},#{limit}
+		</if>
+		<if test="dbName == 'mssql'">
+			SELECT
+			TOP ${limit} *
+			FROM
+			(
+			SELECT
+			ROW_NUMBER () OVER (ORDER BY id ASC) RowNumber ,<include refid="columns"/>
+			FROM
+			FILE_MANAGER a
+			<include refid="selectPageParmas" />
+			) A
+			WHERE
+			A.RowNumber > (#{start} - 1) * #{limit}
+		</if>
+		<if test="dbName == 'oracle'">
+			SELECT * FROM (
+			SELECT
+			<include refid="columns"/>
+			,ROWNUM RN
+			from FILE_MANAGER a
+			<where>
+				<if test="pid != null and pid != '' or pid == 0 ">
+					<![CDATA[and a.PID =  #{pid}]]>
+				</if>
+			</where>
+			order by ID
+			) WHERE 1=1
+			and RN BETWEEN (#{start}+1) AND (#{start}+#{limit})
+		</if>
+	</select>
+
+	<insert id="insert">
+		INSERT INTO FILE_MANAGER(
+					TIME,
+					OS,
+					PID,
+					PATH,
+					SRC,
+					TYPE,
+					NAME
+		) VALUES (
+					#{time},
+					#{os},
+					#{pid},
+					#{path, jdbcType=VARCHAR},
+					#{src},
+					#{type},
+					#{name}
+		)
+	</insert>
+
+	<update id="update">
+		UPDATE FILE_MANAGER SET
+					<if test="time != null and time != ''">TIME = #{time},</if>
+					<if test="os != null and os != ''">OS = #{os},</if>
+					<if test="pid != null and pid != '' or pid == 0">PID = #{pid},</if>
+					<if test="path != null and path != ''">PATH = #{path, jdbcType=VARCHAR},</if>
+					<if test="src != null and src != ''">SRC = #{src},</if>
+					<if test="type != null and type != ''">TYPE = #{type},</if>
+					<if test="name != null and name != ''">NAME = #{name}</if>
+		WHERE id =  #{id}
+	</update>
+
+	<delete id="delete" parameterType="java.lang.Integer" >
+		delete from FILE_MANAGER
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+</mapper>
