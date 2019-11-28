@@ -3,6 +3,9 @@ server:
   port: 8081
   address: 127.0.0.1
 
+mybatis:
+  mapper-locations: classpath*:com/mapper/**/*.xml
+
 spring:
   kafka:
     bootstrap-servers: localhost:9092 #制定kafka代理地址,可以多个

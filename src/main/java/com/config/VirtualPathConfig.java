@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class VirtualPathConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        String realPath = "file:/";
+        String realPath = "file:";
         if(Global.getOS()){
         //Windows系统
             realPath += Global.WINFILEPATH;

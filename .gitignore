@@ -1,0 +1,10 @@
+#idea
+.idea
+.iml
+
+#my
+#folder
+target
+src/test/*
+logs
+

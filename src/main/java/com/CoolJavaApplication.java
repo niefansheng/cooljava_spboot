@@ -9,7 +9,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 
 @SpringBootApplication
-@MapperScan("com.mapper.*")
+@MapperScan(basePackages = "com.mapper.*")
 //@EnableScheduling//spring自带定时任务
 public class CoolJavaApplication extends SpringBootServletInitializer {
 
