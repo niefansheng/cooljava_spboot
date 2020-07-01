@@ -32,7 +32,7 @@
         <tomcat.version>8.5.45</tomcat.version>
         <alibaba.version>1.1.20</alibaba.version>
         <shiro.version>1.4.0</shiro.version>
-        <quartz.version>2.2.3</quartz.version>
+        <quartz.version>2.3.2</quartz.version>
     </properties>
     <dependencyManagement>
         <dependencies>
