@@ -21,7 +21,7 @@
         <!-- spring版本号 -->
         <spring.version>4.3.17.RELEASE</spring.version>
         <!-- mybatis版本号 -->
-        <mybatis.version>3.4.5</mybatis.version>
+        <mybatis.version>3.5.6</mybatis.version>
         <springboot.version>2.1.4.RELEASE</springboot.version>
         <springframework>5.1.5.RELEASE</springframework>
         <!-- log4j日志文件管理包版本 -->
