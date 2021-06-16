@@ -29,7 +29,7 @@
         <log4j.version>1.2.17</log4j.version>
         <!--<logging.log4j.version>2.11.0</logging.log4j.version>-->
         <jedis.version>2.9.3</jedis.version>
-        <tomcat.version>8.5.45</tomcat.version>
+        <tomcat.version>8.5.61</tomcat.version>
         <alibaba.version>1.1.20</alibaba.version>
         <shiro.version>1.4.0</shiro.version>
         <quartz.version>2.2.3</quartz.version>
